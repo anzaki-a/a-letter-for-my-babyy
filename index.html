@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>A Letter For You</title>
+
+    <style>
+
+        /* ========================================
+           BASIC
+        ======================================== */
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            font-family: Georgia, serif;
+
+            background:
+                radial-gradient(
+                    circle at 50% 35%,
+                    #fff8fb 0%,
+                    #fde8ef 28%,
+                    #f8cedc 62%,
+                    #edb2c8 100%
+                );
+
+            overflow: hidden;
+
+            color: #5b3442;
+        }
+
+
+        /* ========================================
+           MAIN CONTAINER
+        ======================================== */
+
+        .container {
+            position: relative;
+
+            width: 100%;
+            height: 100vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            overflow: hidden;
+        }
+
+
+        /* ========================================
+           HIDDEN CHECKBOX
+        ======================================== */
+
+        #open,
+        #read {
+            display: none;
+        }
+
+
+        /* ========================================
+           BACKGROUND DECORATION
+        ======================================== */
+
+        .container::before {
+            content: "";
+
+            position: absolute;
+
+            width: 500px;
+            height: 500px;
+
+            left: 50%;
+            top: 50%;
+
+            transform:
+                translate(-50%, -50%);
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(255,255,255,0.75) 0%,
+                    rgba(255,255,255,0.25) 40%,
+                    transparent 70%
+                );
+
+            filter: blur(15px);
+
+            pointer-events: none;
+        }
+
+
+        /* ========================================
+           LITTLE STARS
+        ======================================== */
+
+        .container::after {
+            content:
+                "✦     ˚        ✧       ˚     ✦       ˚        ✧";
+
+            position: absolute;
+
+            top: 17%;
+            left: 50%;
+
+            transform:
+                translateX(-50%);
+
+            width: 100%;
+
+            text-align: center;
+
+            font-size: 16px;
+
+            letter-spacing: 25px;
+
+            color: rgba(125, 67, 88, 0.35);
+
+            pointer-events: none;
+
+            animation:
+                twinkle 3s ease-in-out infinite;
+        }
+
+        @keyframes twinkle {
+
+            0%,
+            100% {
+                opacity: 0.35;
+            }
+
+            50% {
+                opacity: 0.8;
+            }
+        }
+
+
+        /* ========================================
+           TITLE
+        ======================================== */
+
+        .title {
+            position: absolute;
+
+            top: 75px;
+
+            font-size: 34px;
+            font-weight: 600;
+
+            letter-spacing: 1.5px;
+
+            color: #603746;
+
+            text-shadow:
+                0 2px 15px
+                rgba(255,255,255,0.8);
+
+            transition:
+                opacity 0.6s ease,
+                transform 0.6s ease;
+        }
+
+
+        /*
+         * Tiny decorative line below title
+         */
+
+        .title::after {
+            content: "♡";
+
+            display: block;
+
+            margin-top: 10px;
+
+            text-align: center;
+
+            font-size: 15px;
+
+            color: #c27a92;
+        }
+
+
+        /* ========================================
+           INSTRUCTION
+        ======================================== */
+
+        .instruction {
+            position: absolute;
+
+            bottom: 72px;
+
+            font-family: Arial, sans-serif;
+
+            font-size: 13px;
+
+            color: #815564;
+
+            letter-spacing: 0.5px;
+
+            opacity: 0.85;
+
+            transition:
+                opacity 0.5s ease;
+        }
+
+        .instruction::after {
+            content:
+                "tap the envelope to open it :3";
+        }
+
+
+        /* ========================================
+           ENVELOPE AREA
+        ======================================== */
+
+        .envelope-area {
+            position: relative;
+
+            width: 390px;
+            height: 320px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            z-index: 5;
+        }
+
+
+        /* ========================================
+           GLOW BEHIND ENVELOPE
+        ======================================== */
+
+        .envelope-area::before {
+            content: "";
+
+            position: absolute;
+
+            width: 330px;
+            height: 190px;
+
+            left: 50%;
+            top: 50%;
+
+            transform:
+                translate(-50%, -45%);
+
+            background:
+                rgba(255, 255, 255, 0.65);
+
+            border-radius: 50%;
+
+            filter: blur(35px);
+
+            z-index: -1;
+
+            animation:
+                envelopeGlow 4s ease-in-out infinite;
+        }
+
+        @keyframes envelopeGlow {
+
+            0%,
+            100% {
+                transform:
+                    translate(-50%, -45%)
+                    scale(0.95);
+
+                opacity: 0.55;
+            }
+
+            50% {
+                transform:
+                    translate(-50%, -45%)
+                    scale(1.08);
+
+                opacity: 0.85;
+            }
+        }
+
+
+        /* ========================================
+           ENVELOPE
+        ======================================== */
+
+        .envelope {
+            position: relative;
+
+            width: 350px;
+            height: 225px;
+
+            overflow: hidden;
+
+            border-radius: 9px;
+
+            filter:
+                drop-shadow(
+                    0 18px 25px
+                    rgba(94, 44, 61, 0.20)
+                );
+
+            transform:
+                translateY(0);
+
+            animation:
+                envelopeFloat 4s ease-in-out infinite;
+
+            transition:
+                transform 0.7s ease;
+        }
+
+
+        @keyframes envelopeFloat {
+
+            0%,
+            100% {
+                transform:
+                    translateY(0);
+            }
+
+            50% {
+                transform:
+                    translateY(-7px);
+            }
+        }
+
+
+        /* ========================================
+           ENVELOPE BACK
+        ======================================== */
+
+        .envelope-back {
+            position: absolute;
+
+            inset: 0;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #fbd5e1,
+                    #f4bfd0
+                );
+
+            border-radius: 9px;
+
+            z-index: 1;
+
+            transition:
+                opacity 0.6s ease;
+        }
+
+
+        /* ========================================
+           LETTER
+        ======================================== */
+
+        .letter {
+            position: absolute;
+
+            width: 310px;
+            height: 190px;
+
+            left: 50%;
+            top: 35px;
+
+            transform:
+                translateX(-50%);
+
+            background: #fffdf8;
+
+            border-radius: 4px;
+
+            padding: 28px;
+
+            color: #4f3840;
+
+            z-index: 2;
+
+            box-shadow:
+                0 3px 10px
+                rgba(0, 0, 0, 0.08);
+
+            transition:
+                top 0.9s ease,
+                width 0.8s ease,
+                height 0.8s ease,
+                transform 0.8s ease,
+                box-shadow 0.8s ease;
+        }
+
+
+        /* ========================================
+           LETTER CONTENT
+        ======================================== */
+
+        .letter-content {
+            opacity: 0;
+
+            transition:
+                opacity 0.6s ease;
+        }
+
+        .letter h2 {
+            margin-top: 0;
+
+            font-size: 25px;
+
+            color: #754252;
+        }
+
+        .letter p {
+            margin-bottom: 18px;
+
+            font-family: Arial, sans-serif;
+
+            font-size: 15px;
+
+            line-height: 1.8;
+        }
+
+        .signature {
+            margin-top: 30px;
+
+            text-align: right;
+
+            font-family: Georgia, serif;
+
+            font-style: italic;
+        }
+
+
+        /* ========================================
+           ENVELOPE FRONT
+        ======================================== */
+
+        .envelope-front {
+            position: absolute;
+
+            left: 0;
+            bottom: 0;
+
+            width: 100%;
+            height: 72%;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #f6bfd0,
+                    #efafc3
+                );
+
+            z-index: 4;
+
+            clip-path:
+                polygon(
+                    0 0,
+                    50% 55%,
+                    100% 0,
+                    100% 100%,
+                    0 100%
+                );
+
+            transition:
+                opacity 0.6s ease;
+        }
+
+
+        /* ========================================
+           ENVELOPE FLAP
+        ======================================== */
+
+        .flap {
+            position: absolute;
+
+            left: 0;
+            top: 0;
+
+            width: 100%;
+            height: 100%;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #fbd0dd,
+                    #f5bccf
+                );
+
+            clip-path:
+                polygon(
+                    0 0,
+                    100% 0,
+                    50% 58%
+                );
+
+            transform-origin:
+                top center;
+
+            z-index: 5;
+
+            transition:
+                transform 0.9s ease,
+                opacity 0.6s ease;
+        }
+
+
+        /* ========================================
+           ENVELOPE CENTER HEART
+        ======================================== */
+
+        .envelope::after {
+            content: "♡";
+
+            position: absolute;
+
+            left: 50%;
+            bottom: 35px;
+
+            transform:
+                translateX(-50%);
+
+            z-index: 7;
+
+            font-size: 22px;
+
+            color: rgba(137, 65, 88, 0.65);
+
+            pointer-events: none;
+
+            transition:
+                opacity 0.5s ease;
+        }
+
+
+        /* ========================================
+           OPEN TRIGGER
+        ======================================== */
+
+        .open-trigger {
+            position: absolute;
+
+            inset: 0;
+
+            z-index: 10;
+
+            cursor: pointer;
+        }
+
+
+        /* ========================================
+           READ TRIGGER
+        ======================================== */
+
+        .read-trigger {
+            position: absolute;
+
+            width: 290px;
+            height: 90px;
+
+            left: 50%;
+            top: 15px;
+
+            transform:
+                translateX(-50%);
+
+            z-index: 15;
+
+            cursor: pointer;
+
+            opacity: 0;
+
+            pointer-events: none;
+
+            transition:
+                opacity 0.5s ease;
+        }
+
+
+        /* ========================================
+           BALLOONS
+        ======================================== */
+
+        .balloons {
+            position: absolute;
+
+            inset: 0;
+
+            pointer-events: none;
+
+            z-index: 0;
+        }
+
+        .balloon {
+            position: absolute;
+
+            width: 38px;
+            height: 48px;
+
+            bottom: 0;
+
+            border-radius: 50%;
+
+            opacity: 0;
+
+            animation:
+                balloonFloat 5s ease-in infinite;
+
+            transition:
+                opacity 0.5s ease;
+        }
+
+        .balloon::after {
+            content: "";
+
+            position: absolute;
+
+            left: 50%;
+            top: 46px;
+
+            width: 1px;
+            height: 60px;
+
+            background:
+                rgba(90, 60, 70, 0.3);
+        }
+
+        .balloon:nth-child(1) {
+            left: 12%;
+            animation-delay: 0s;
+        }
+
+        .balloon:nth-child(2) {
+            left: 25%;
+            animation-delay: 1.2s;
+        }
+
+        .balloon:nth-child(3) {
+            left: 75%;
+            animation-delay: 0.7s;
+        }
+
+        .balloon:nth-child(4) {
+            left: 88%;
+            animation-delay: 1.8s;
+        }
+
+        .balloon:nth-child(5) {
+            left: 50%;
+            animation-delay: 2.5s;
+        }
+
+
+        /* ========================================
+           BALLOON ANIMATION
+        ======================================== */
+
+        @keyframes balloonFloat {
+
+            0% {
+                transform:
+                    translateY(0)
+                    rotate(-5deg);
+
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            100% {
+                transform:
+                    translateY(-110vh)
+                    rotate(10deg);
+
+                opacity: 0;
+            }
+        }
+
+
+        /* ========================================
+           STAGE 2
+           ENVELOPE OPENED
+        ======================================== */
+
+        #open:checked ~ .envelope-area .flap {
+
+            transform:
+                rotateX(180deg);
+
+            z-index: 1;
+        }
+
+
+        #open:checked ~ .envelope-area .letter {
+
+            top: -70px;
+
+            z-index: 2;
+        }
+
+
+        #open:checked ~ .envelope-area .read-trigger {
+
+            opacity: 1;
+
+            pointer-events: auto;
+        }
+
+
+        #open:checked ~ .envelope-area .open-trigger {
+
+            pointer-events: none;
+        }
+
+
+        #open:checked ~ .balloons .balloon {
+
+            opacity: 1;
+        }
+
+
+        #open:checked ~ .instruction::after {
+
+            content:
+                "tap the letter to read it :3";
+        }
+
+
+        /* ========================================
+           STAGE 3
+           FULL LETTER
+        ======================================== */
+
+        #open:checked ~ #read:checked
+        ~ .envelope-area .letter {
+
+            position: fixed;
+
+            left: 50%;
+            top: 50%;
+
+            width: min(520px, 88vw);
+            height: min(720px, 80vh);
+
+            transform:
+                translate(-50%, -50%);
+
+            padding: 40px 35px;
+
+            z-index: 30;
+
+            overflow-y: auto;
+
+            border-radius: 10px;
+
+            background: #fffdf8;
+
+            box-shadow:
+                0 25px 70px
+                rgba(70, 30, 45, 0.25);
+        }
+
+
+        #open:checked ~ #read:checked
+        ~ .envelope-area .letter-content {
+
+            opacity: 1;
+        }
+
+
+        /* ========================================
+           HIDE ENVELOPE PARTS ONLY
+        ======================================== */
+
+        #open:checked ~ #read:checked
+        ~ .envelope-area .envelope-back,
+
+        #open:checked ~ #read:checked
+        ~ .envelope-area .envelope-front,
+
+        #open:checked ~ #read:checked
+        ~ .envelope-area .flap {
+
+            opacity: 0;
+
+            pointer-events: none;
+        }
+
+
+        /*
+         * Envelope container remains visible
+         * so the letter can stay visible.
+         */
+
+        #open:checked ~ #read:checked
+        ~ .envelope-area .envelope {
+
+            overflow: visible;
+
+            filter: none;
+
+            pointer-events: none;
+
+            animation: none;
+        }
+
+
+        /*
+         * Letter remains interactive.
+         */
+
+        #open:checked ~ #read:checked
+        ~ .envelope-area .letter {
+
+            pointer-events: auto;
+        }
+
+
+        /* Hide heart */
+
+        #open:checked ~ #read:checked
+        ~ .envelope-area .envelope::after {
+
+            opacity: 0;
+        }
+
+
+        /* ========================================
+           HIDE READ TRIGGER
+        ======================================== */
+
+        #open:checked ~ #read:checked
+        ~ .envelope-area .read-trigger {
+
+            opacity: 0;
+
+            pointer-events: none;
+        }
+
+
+        /* ========================================
+           HIDE TITLE
+        ======================================== */
+
+        #open:checked ~ #read:checked
+        ~ .title {
+
+            opacity: 0;
+
+            transform:
+                translateY(-20px);
+        }
+
+
+        /* ========================================
+           HIDE INSTRUCTION
+        ======================================== */
+
+        #open:checked ~ #read:checked
+        ~ .instruction {
+
+            opacity: 0;
+        }
+
+
+        /* ========================================
+           LETTER SCROLLBAR
+        ======================================== */
+
+        .letter::-webkit-scrollbar {
+            width: 7px;
+        }
+
+        .letter::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .letter::-webkit-scrollbar-thumb {
+            background: #df9caf;
+
+            border-radius: 10px;
+        }
+
+
+        /* ========================================
+           MOBILE
+        ======================================== */
+
+        @media (max-width: 600px) {
+
+            .title {
+                top: 65px;
+
+                font-size: 28px;
+            }
+
+            .envelope-area {
+                transform:
+                    scale(0.85);
+            }
+
+            .instruction {
+                bottom: 58px;
+
+                font-size: 12px;
+            }
+
+            .container::after {
+                font-size: 12px;
+
+                letter-spacing: 14px;
+            }
+
+            #open:checked ~ #read:checked
+            ~ .envelope-area .letter {
+
+                width: 88vw;
+
+                height: 78vh;
+
+                padding:
+                    30px 25px;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+    <div class="container">
+
+
+        <!-- ==================================
+             TITLE
+        =================================== -->
+
+        <div class="title">
+            a letter for u
+        </div>
+
+
+        <!-- ==================================
+             OPEN CONTROL
+        =================================== -->
+
+        <input
+            type="checkbox"
+            id="open"
+        >
+
+
+        <!-- ==================================
+             READ CONTROL
+        =================================== -->
+
+        <input
+            type="checkbox"
+            id="read"
+        >
+
+
+        <!-- ==================================
+             BALLOONS
+        =================================== -->
+
+        <div class="balloons">
+
+            <div
+                class="balloon"
+                style="background:#e99bb3;">
+            </div>
+
+            <div
+                class="balloon"
+                style="background:#f4c1cf;">
+            </div>
+
+            <div
+                class="balloon"
+                style="background:#d98aa5;">
+            </div>
+
+            <div
+                class="balloon"
+                style="background:#f0a9be;">
+            </div>
+
+            <div
+                class="balloon"
+                style="background:#e7b0c0;">
+            </div>
+
+        </div>
+
+
+        <!-- ==================================
+             ENVELOPE AREA
+        =================================== -->
+
+        <div class="envelope-area">
+
+
+            <!-- OPEN ENVELOPE -->
+
+            <label
+                for="open"
+                class="open-trigger"
+                aria-label="Open envelope">
+            </label>
+
+
+            <div class="envelope">
+
+
+                <!-- ENVELOPE BACK -->
+
+                <div class="envelope-back"></div>
+
+
+                <!-- ==================================
+                     LETTER
+                =================================== -->
+
+                <div class="letter">
+
+                    <div class="letter-content">
+
+
+                        <h2>
+                            HAPPYY BIRTHDAYY BEBE! ♡
+                        </h2>
+
+
+                        <p>
+                            Dear My Gugugaga,
+                        </p>
+
+
+                        <p>
+                            Happy Birthday BABEE!!! 🎂
+                            I hope today will be one of the days that makes you happy.
+                        </p>
+
+                        <p>
+                            Aku jadi keinget lagi tahun lalu aku mau buat web untuk dirimu,
+                            tapi aku malah takut dirimu jadi tau i'm in love with you n membuat dirimu risih.
+                            But today i finally making it for u :3
+                        </p>
+
+
+                        <p>
+                            Thank you for being part of my life,
+                            And thank u for everything u've given me.
+                        </p>
+
+
+                        <p>
+                            Maafin aku ya klo aku terkadang malah jadi orang yang menyebalkan,
+                            but i'll always try my best to make u happyy.
+                        </p>
+
+
+                        <p>
+                            I hope that all your wishes is gonna be true,
+                            and wish you all the best for your live.
+                        </p>
+
+
+                        <p>
+                            Semoga dengan bertambahnya umur,
+                            dirimu bisa menjadi orang yg lebih hebat,
+                            lebih dewasa,
+                            dan lebih baik dari hari-hari sebelumnya
+                        </p>
+
+                        <p>
+                            (cuma sekedar web ucapan biasa sih,
+                            tpi suatu hari nanti aku pasti bakal buat sesuatu yg lebih mantep pokoknya ehe)
+                        </p>
+
+                        <p>
+                            I LOVE YOUU BABEEE
+                        </p>
+
+
+                        <div class="signature">
+
+                            with all my love,<br>
+
+                            from your gugugaga ♡
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+                <!-- ENVELOPE FRONT -->
+
+                <div class="envelope-front"></div>
+
+
+                <!-- ENVELOPE FLAP -->
+
+                <div class="flap"></div>
+
+
+            </div>
+
+
+            <!-- READ LETTER -->
+
+            <label
+                for="read"
+                class="read-trigger"
+                aria-label="Read letter">
+            </label>
+
+
+        </div>
+
+
+        <!-- ==================================
+             INSTRUCTION
+        =================================== -->
+
+        <div class="instruction"></div>
+
+
+    </div>
+
+</body>
+</html>
